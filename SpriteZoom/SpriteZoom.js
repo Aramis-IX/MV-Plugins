@@ -1,87 +1,96 @@
 //=============================================================================
 // SpriteZoom
 // By Aramis-IX
-// Version: 1.0.0
-// Date: 12/1/2015  
+//=============================================================================
+// 12-08-2015 - Version 1.0.0 - Initial release.
+//=============================================================================
+// Terms & Conditions:
+// This plugin is free for both non-commercial and commercial use. 
 //=============================================================================
 var Imported = Imported || {};
 Imported.SpriteZoom = true;
 
 var SpriteZoom = SpriteZoom || {};
-// NASTY INCLUDED SOME VARIABLES AND SOME DEFINITIONS... NOT SURE WHAT THOSE LINE OF CODE DO... WE WILL SEE...
+//-----------------------------------------------------------------------------
  /*:
- * @plugindesc Zoom event, player and follower sprites! View the plugin "Help" to view SCRIPT calls.
+ * @plugindesc Zoom events, the player and follower sprites! View the plugin
+ * "Help" for instructions and SCRIPT calls.
+ *
  * @author Aramis-IX  
  *
  * @help
- *   Sprite Zooming
+ * Sprite Zooming
  * ----------------------------------------------------------------------------
  * This script allows users to control the zoom-level for character sprites; 
- * events, players and followers. The available script calls are listed below.
- *
+ * events, the player and followers. The available SCRIPT calls are listed
+ * below.
  * ----------------------------------------------------------------------------
- *   SCRIPT calls for SpriteZoom
+ * SCRIPT calls for SpriteZoom
  * ----------------------------------------------------------------------------
  * SpriteZoom.zoom(ID, zoom);
  * SpriteZoom.zoom(ID, zoom, duration);
  * SpriteZoom.zoom(Id, zoom, duration, zoom_y);
  * SpriteZoom.zoom(ID, zoom, duration, zoom_y, duration_y);
  *
- * 	**ID is the ID of the event in question**
- *		1-9999 = Event number on the map.
- *  	0 = Your player.
- *  	-1 = Follower 1.
- *  	-2 = Follower 2.
- *  	-3 = Follower 3.
+ *	**ID is the ID of the event in question**
+ *	1-9999 = Event number on the map.
+ *		 0 = Your player.
+ *		-1 = Follower 1.
+ *		-2 = Follower 2.
+ *		-3 = Follower 3.
  *
- *	NOTE: If no ID is passed to the script, the default ID is 0 (i.e.: the player).
+ *	NOTE: If no ID is passed to the script, the default ID is 0 (i.e.: the
+ *	player).
  *
- *  **ZOOM is a percentage**
- *		1 equates to 100%.
- *		0.5 to 50% (half the size).
- *		2 to 200% (double the size).
+ *	**ZOOM is a percentage**
+ *	1 equates to 100%.
+ *	0.5 to 50% (half the size).
+ *	2 to 200% (double the size).
  *	
- * NOTE: Negative zoom values flip the sprite on its axes; the default x-axis is the sprite's center, and the
- * default y-axis is the sprite's bottom. 
+ * NOTE: Negative zoom values flip the sprite on its axes; the default x-axis
+ * is the sprite's centre, and the default y-axis is the sprite's bottom. 
  *
- * The duration value allows you to create a zoom animation over-time. It can be an integer that is 0 or higher.
+ * The duration value allows you to create a zoom animation over-time. It can
+ * be an integer that is 0 or higher.
  *
- * When only one 'zoom' value is specified, it assumes both the x and y dimensions will be zoomed proportionally.
- * The same can be said for durations...
+ * When only one 'zoom' value is specified, it assumes both the x and y 
+ * dimensions will be zoomed proportionally. The same can be said for duration.
  *
- * You can specify separate zoom behaviours (zoom and duration) for each direction by passing in additional arguments.
+ * You can specify separate zoom behaviours (zoom and duration) for each 
+ * direction by passing in additional arguments.
  *
  *  **EXAMPLES**
  *
- *  SpriteZoom.zoom();
- *  	The code above will reset the player to 100% original size in 0 frames.
+ *	SpriteZoom.zoom();
+ *	The code above will reset the player to 100% original size in 0 frames.
  *
- *  SpriteZoom.zoom(0, 2, 120);
- * 		The code above will zoom the player 200% in 120 frames.
+ *	SpriteZoom.zoom(0, 2, 120);
+ *	The code above will zoom the player 200% in 120 frames.
  *
- * 	SpriteZoom.zoom(-2, .5, 30, 1);
- * 		The code above will shrink follower 2's width by 50%, while maintaining their height
- * 		over the coarse of 30 frames.
+ *	SpriteZoom.zoom(-2, .5, 30, 1);
+ *	The code above will shrink follower 2's width by 50%, while maintaining
+ * 	their height over the coarse of 30 frames.
  *
- * 	SpriteZoom.zoom(23, 0, 200, 1.35, 250);
- * 		The code above will shrink event-23's width to nothing over 200 frames while stretching their height 135% over 120 frames.
+ *	SpriteZoom.zoom(23, 0, 200, 1.35, 250);
+ *	The code above will shrink event-23's width to nothing over 200 frames 
+ *	while stretching their height 135% over 120 frames.
  */         
             
 
 (function($) {
 
-  //=============================================================================
-  // Code: Special thanks to Hime
-  //=============================================================================
+//=============================================================================
+// Code: Special thanks to Hime from Himeworks
+//=============================================================================
 	var Sprite_Zoom_Sprite_Update_Alias = Sprite_Character.prototype.updateOther;
 	Sprite_Character.prototype.updateOther = function() {
-			Sprite_Zoom_Sprite_Update_Alias.call(this);
-			this.scale.x = this._character._zoom_x;
-			this.scale.y = this._character._zoom_y;
+		Sprite_Zoom_Sprite_Update_Alias.call(this);
+		this.scale.x = this._character._zoom_x;
+		this.scale.y = this._character._zoom_y;
 	};
 	
 	var Sprite_Zoom_Character_Init_Members_Alias = Game_Character.prototype.initMembers;
-	 Game_Character.prototype.initMembers = function() {
+	Game_Character.prototype.initMembers = function() {
 		Sprite_Zoom_Character_Init_Members_Alias.call(this);
 		this._zoom_x = 1.0;
 		this._zoom_y = 1.0;
@@ -154,15 +163,8 @@ var SpriteZoom = SpriteZoom || {};
 		duration = typeof duration !== 'undefined' ? duration : 0;
 		zoom_y = typeof zoom_y !== 'undefined' ? zoom_y : zoom_x;
 		duration_y = typeof duration_y !== 'undefined' ? duration_y : duration;
-		
-		console.log("The first value, i.e. event_id is " + event_id);
-		console.log("The second value, i.e. zoom_x is " + zoom_x);
-		console.log("The third value, i.e. duration is " + duration);
-		console.log("The fourth value, i.e. zoom_y is " + zoom_y);
-		console.log("The fifth value, i.e. duration_y is " + duration_y);
-		
-		
-		// Create character for start_zoom()
+				
+		// Get character for start_zoom()
 		var event = this.getChar(event_id);
 		
 		// If 'event' is assigned, the character will execute start_zoom
