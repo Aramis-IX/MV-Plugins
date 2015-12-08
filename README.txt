@@ -1,0 +1,1 @@
+The main directory for all of Aramis-IX's RPG Maker MV plugins
