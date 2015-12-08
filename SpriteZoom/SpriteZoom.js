@@ -54,17 +54,17 @@ var SpriteZoom = SpriteZoom || {};
  *  **EXAMPLES**
  *
  *  SpriteZoom.zoom();
- *  The code above will reset the player to 100% original size in 0 frames.
+ *  	The code above will reset the player to 100% original size in 0 frames.
  *
  *  SpriteZoom.zoom(0, 2, 120);
- * 	The code above will zoom the player 200% in 120 frames.
+ * 		The code above will zoom the player 200% in 120 frames.
  *
  * 	SpriteZoom.zoom(-2, .5, 30, 1);
- * 	The code above will shrink follower 2's width by 50%, while maintaining their height
- * 	over the coarse of 30 frames.
+ * 		The code above will shrink follower 2's width by 50%, while maintaining their height
+ * 		over the coarse of 30 frames.
  *
  * 	SpriteZoom.zoom(23, 0, 200, 1.35, 250);
- * 	The code above will shrink event-23's width to nothing over 200 frames while stretching their height 135% over 120 frames.
+ * 		The code above will shrink event-23's width to nothing over 200 frames while stretching their height 135% over 120 frames.
  */         
             
 
