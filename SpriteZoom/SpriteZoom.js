@@ -33,11 +33,11 @@ var SpriteZoom = SpriteZoom || {};
  * SpriteZoom.zoom(ID, zoom, duration, zoom_y, duration_y);
  *
  *	**ID is the ID of the event in question**
- *	1-9999 = Event number on the map.
- *		 0 = Your player.
- *		-1 = Follower 1.
- *		-2 = Follower 2.
- *		-3 = Follower 3.
+ *	1-9999 	= Event number on the map.
+ *	0 	= Your player.
+ *	-1 	= Follower 1.
+ *	-2 	= Follower 2.
+ *	-3 	= Follower 3.
  *
  *	NOTE: If no ID is passed to the script, the default ID is 0 (i.e.: the
  *	player).
