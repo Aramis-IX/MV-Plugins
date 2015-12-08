@@ -165,7 +165,7 @@ var SpriteZoom = SpriteZoom || {};
 		duration_y = typeof duration_y !== 'undefined' ? duration_y : duration;
 				
 		// Get character for start_zoom()
-		var event = this.getChar(event_id);
+		var event = getChar(event_id);
 		
 		// If 'event' is assigned, the character will execute start_zoom
 		if (event != null) {
@@ -174,7 +174,7 @@ var SpriteZoom = SpriteZoom || {};
 	};
 	
 	// Code based on Game_Interpreter.prototype.character; original adaptation developed by Nelderson
-	$.getChar = function(id){
+	function getChar(id){
 		  if ($gameParty.inBattle()) {
 			  return null;
 		  } else if (id == 0) {
